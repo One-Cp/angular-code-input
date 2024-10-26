@@ -1,5 +1,5 @@
 {
-  "name": "angular-code-input",
+  "name": "@one-cp/angular-code-input",
   "version": "3.0.0",
   "description": "Code or pin code input for Angular 18+ projects",
   "keywords": [
