@@ -28,7 +28,6 @@ enum InputState {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'code-input',
   templateUrl: 'code-input.component.html',
   styleUrls: ['./code-input.component.scss']
@@ -60,7 +59,6 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
   private inputsStates: InputState[] = [];
   private inputsListSubscription !: Subscription;
 
-  // tslint:disable-next-line:variable-name
   private _codeLength !: number;
   private state = {
     isFocusingAfterAppearingCompleted: false,
@@ -134,7 +132,6 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
     this.onInputCodeChanges();
 
     if (this.state.isInitialFocusFieldEnabled) {
-      // tslint:disable-next-line:no-non-null-assertion
       this.focusOnField(this.initialFocusField!);
     }
 
@@ -222,7 +219,6 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
     }
 
     // Convert paste text into iterable
-    // tslint:disable-next-line:no-non-null-assertion
     const values = data!.split('');
     let valIndex = 0;
 
@@ -291,7 +287,6 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
       return;
     }
 
-    // tslint:disable-next-line:no-non-null-assertion
     const chars = this.code!.toString().trim().split('');
     // checking if all the values are correct
     let isAllCharsAreAllowed = true;
@@ -348,9 +343,8 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
       return;
     }
 
-    // tslint:disable-next-line:no-non-null-assertion
     this.focusOnField(this.initialFocusField!);
-    // tslint:disable-next-line:no-non-null-assertion
+
     this.state.isFocusingAfterAppearingCompleted = document.activeElement === this.inputs[this.initialFocusField!];
   }
 
@@ -415,13 +409,11 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
     if (isEmpty) {
       input.value = '';
       input.classList.remove(valueClassCSS);
-      // tslint:disable-next-line:no-non-null-assertion
       input.parentElement!.classList.add(emptyClassCSS);
     }
     else {
       input.value = value;
       input.classList.add(valueClassCSS);
-      // tslint:disable-next-line:no-non-null-assertion
       input.parentElement!.classList.remove(emptyClassCSS);
     }
   }
