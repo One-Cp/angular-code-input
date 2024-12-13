@@ -28,20 +28,11 @@
             "tsConfig": "angular-code-input/tsconfig.spec.json",
             "karmaConfig": "angular-code-input/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "angular-code-input/tsconfig.lib.json",
-              "angular-code-input/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }
