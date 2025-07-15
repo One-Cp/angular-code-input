@@ -23,7 +23,7 @@
     "url": "https://github.com/AlexMiniApps/angular-code-input/issues"
   },
   "peerDependencies": {
-    "@angular/common": ">=18.0.0",
-    "@angular/core": ">=18.0.0"
+    "@angular/common": ">=19.2.14",
+    "@angular/core": ">=19.2.14"
   }
 }
