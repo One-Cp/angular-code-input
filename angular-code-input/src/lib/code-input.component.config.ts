@@ -1,4 +1,4 @@
-import {InjectionToken} from '@angular/core';
+import {InjectionToken, Provider} from '@angular/core';
 
 export const CodeInputComponentConfigToken = new InjectionToken<CodeInputComponentConfig>('CodeInputComponentConfig');
 
@@ -29,3 +29,27 @@ export const defaultComponentConfig: CodeInputComponentConfig = {
   disabled: false,
   autocapitalize: undefined
 };
+
+/**
+ * Modern provider function for CodeInput configuration
+ * @param config - Configuration object for CodeInput component
+ * @returns Provider array for use in bootstrapApplication or NgModule providers
+ */
+export function provideCodeInputConfig(config: CodeInputComponentConfig): Provider {
+  return {
+    provide: CodeInputComponentConfigToken,
+    useValue: { ...defaultComponentConfig, ...config }
+  };
+}
+
+/**
+ * Factory function for creating configuration with custom logic
+ * @param configFactory - Factory function that returns configuration
+ * @returns Provider for use in bootstrapApplication or NgModule providers
+ */
+export function provideCodeInputConfigFactory(configFactory: () => CodeInputComponentConfig): Provider {
+  return {
+    provide: CodeInputComponentConfigToken,
+    useFactory: configFactory
+  };
+}
