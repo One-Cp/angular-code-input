@@ -38,33 +38,101 @@ Choose the version corresponding to your Angular version:
 
 ## Usage
 
-Import `CodeInputModule` in your app module or page module:
+Import `CodeInputComponent` directly in your standalone component or in your app module:
 
+### For Standalone Components (Recommended):
 ```ts
-import { CodeInputModule } from 'angular-code-input';
+import { CodeInputComponent } from 'angular-code-input';
+
+@Component({
+  selector: 'app-my-component',
+  imports: [CodeInputComponent],
+  // ...
+})
+export class MyComponent {
+  // ...
+}
+```
+
+### For NgModule-based Applications:
+```ts
+import { CodeInputComponent } from 'angular-code-input';
 
 @NgModule({
   imports: [
     // ...
-    CodeInputModule
+    CodeInputComponent
   ]
 })
 ```
 
-It is possible to configure the component across the app using the root config. In such case the import will look as follows:
-```ts
-import { CodeInputModule } from 'angular-code-input';
+### Global Configuration:
 
-@NgModule({
-  imports: [
-    // ...
-    CodeInputModule.forRoot({
+#### Modern Approach (Recommended):
+Use the `provideCodeInputConfig` function for cleaner and more type-safe configuration:
+
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideCodeInputConfig } from 'angular-code-input';
+
+// For standalone apps (main.ts)
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideCodeInputConfig({
       codeLength: 6,
       isCharsCode: true,
-      code: 'abcdef'
-    }),
+      isCodeHidden: true
+    })
+  ]
+});
+```
+
+```ts
+// For NgModule-based apps (app.module.ts)
+import { provideCodeInputConfig } from 'angular-code-input';
+
+@NgModule({
+  providers: [
+    provideCodeInputConfig({
+      codeLength: 6,
+      isCharsCode: true,
+      isCodeHidden: true
+    })
   ]
 })
+export class AppModule { }
+```
+
+#### Advanced Configuration with Factory:
+For dynamic configuration based on environment or other services:
+
+```ts
+import { provideCodeInputConfigFactory } from 'angular-code-input';
+
+// In your providers array
+provideCodeInputConfigFactory(() => {
+  const isDev = !environment.production;
+  return {
+    codeLength: isDev ? 4 : 6,
+    isCharsCode: true,
+    initialFocusField: 0
+  };
+})
+```
+
+#### Legacy Approach (Still Supported):
+```ts
+import { CodeInputComponentConfigToken } from 'angular-code-input';
+
+// In your providers array
+{
+  provide: CodeInputComponentConfigToken,
+  useValue: {
+    codeLength: 6,
+    isCharsCode: true,
+    code: 'abcdef'
+  }
+}
 ```
 
 Include the component on page template HTML:

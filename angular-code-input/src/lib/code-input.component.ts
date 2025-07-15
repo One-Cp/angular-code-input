@@ -4,17 +4,17 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Inject,
+  inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
   QueryList,
   SimpleChanges,
   ViewChildren
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   CodeInputComponentConfig,
   CodeInputComponentConfigToken,
@@ -28,9 +28,10 @@ enum InputState {
 }
 
 @Component({
-  selector: 'code-input',
-  templateUrl: 'code-input.component.html',
-  styleUrls: ['./code-input.component.scss']
+    imports: [CommonModule],
+    selector: 'code-input',
+    templateUrl: 'code-input.component.html',
+    styleUrls: ['./code-input.component.scss']
 })
 export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy, AfterViewChecked, CodeInputComponentConfig {
 
@@ -65,16 +66,19 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
     isInitialFocusFieldEnabled: false
   };
 
-  constructor(@Optional() @Inject(CodeInputComponentConfigToken) config?: CodeInputComponentConfig) {
+  // Modern dependency injection using inject() function
+  private readonly config = inject(CodeInputComponentConfigToken, { optional: true });
+
+  constructor() {
     Object.assign(this, defaultComponentConfig);
 
-    if (!config) {
+    if (!this.config) {
       return;
     }
 
     // filtering for only valid config props
-    for (const prop in config) {
-      if (!config.hasOwnProperty(prop)) {
+    for (const prop in this.config) {
+      if (!this.config.hasOwnProperty(prop)) {
         continue;
       }
 
@@ -83,7 +87,7 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
       }
 
       // @ts-ignore
-      this[prop] = config[prop];
+      this[prop] = this.config[prop];
     }
   }
 
